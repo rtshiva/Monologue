@@ -32,6 +32,7 @@ namespace Monologue
         private void pushMe_Click(object sender, RoutedEventArgs e)
         {
             PushText(sender, e, false);
+            InputBox.Focus();
         }
 
         private void PushText(object sender, RoutedEventArgs e, bool LeftMessage)
@@ -89,6 +90,7 @@ namespace Monologue
         private void pushOtherMe_Click(object sender, RoutedEventArgs e)
         {
             PushText(sender, e, true);
+            InputBox.Focus();
         }
 
         private void keydown_handler(object sender, KeyEventArgs e)

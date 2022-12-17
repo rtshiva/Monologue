@@ -5,20 +5,33 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <PackageIcon>icon_talk80.png</PackageIcon>
+    <ApplicationIcon>icon_talk80.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="background.jpeg" />
     <None Remove="brickwall.jpeg" />
-    <None Remove="icon_talk80.png" />
+    <None Remove="icon_talk80.ico" />
     <None Remove="red_velvet_background.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="icon_talk80.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="background.jpeg" />
-    <Resource Include="brickwall.jpeg" />
+    <Resource Include="icon_talk80.ico" />
     <Resource Include="icon_talk80.png" />
     <Resource Include="red_velvet_background.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="icon_talk80.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
