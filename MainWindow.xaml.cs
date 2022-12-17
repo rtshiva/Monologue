@@ -31,6 +31,14 @@ namespace Monologue
 
         private void pushMe_Click(object sender, RoutedEventArgs e)
         {
+            string UserMessage = InputBox.Text.Replace(" ", "");
+
+            if (UserMessage.Length == 0)
+            {
+                InputBox.Text = "";
+                InputBox.Focus();
+                return;
+            }
             PushText(sender, e, false);
             InputBox.Focus();
         }
@@ -89,6 +97,14 @@ namespace Monologue
 
         private void pushOtherMe_Click(object sender, RoutedEventArgs e)
         {
+            string UserMessage = InputBox.Text.Replace(" ", "");
+
+            if (UserMessage.Length == 0)
+            {
+                InputBox.Text = "";
+                InputBox.Focus();
+                return;
+            }
             PushText(sender, e, true);
             InputBox.Focus();
         }
