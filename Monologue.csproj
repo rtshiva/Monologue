@@ -8,15 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="wood.jpeg" />
-    <None Remove="wood2.jpg" />
+    <None Remove="background.jpeg" />
+    <None Remove="brickwall.jpeg" />
+    <None Remove="icon_talk80.png" />
+    <None Remove="red_velvet_background.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="wood.jpeg" />
-    <Resource Include="wood2.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="background.jpeg" />
+    <Resource Include="brickwall.jpeg" />
+    <Resource Include="icon_talk80.png" />
+    <Resource Include="red_velvet_background.jpeg" />
   </ItemGroup>
 
 </Project>

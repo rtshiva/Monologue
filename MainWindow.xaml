@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Monologue"
+        Icon="/icon_talk80.png"
         mc:Ignorable="d"
   
         FocusManager.FocusedElement="{Binding ElementName=InputBox}"
@@ -12,13 +13,13 @@
         Background="Transparent"
         WindowStyle="None"-->
     <Window.Background>
-        <ImageBrush ImageSource="/wood2.jpg"/>
+        <ImageBrush ImageSource="/background.jpeg" Stretch="UniformToFill" />
     </Window.Background>
     <Border CornerRadius="10">
         <DockPanel x:Name="FullPanel">
-            <Border CornerRadius="10" BorderBrush="BurlyWood"  BorderThickness="4" DockPanel.Dock="Bottom">
+            <Border CornerRadius="10" BorderBrush="PaleVioletRed"  BorderThickness="4" DockPanel.Dock="Bottom">
                 <Border.Background>
-                    <ImageBrush ImageSource="/wood.jpeg"/>
+                    <ImageBrush ImageSource="/red_velvet_background.jpeg"/>
                 </Border.Background>
                 <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
                     <DockPanel HorizontalAlignment="Stretch">

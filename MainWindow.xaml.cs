@@ -47,9 +47,9 @@ namespace Monologue
 
             MessageObj.TextWrapping = TextWrapping.Wrap;
             MessageObj.Text = InputBox.Text;
-            BorderObj.MaxWidth= MainWindowTest.Width - 30;
+            BorderObj.MaxWidth = MainWindowTest.Width - 30;
             InputBox.Text = "";
-            
+
             BorderObj.Child = MessageObj;
             BorderObj.MouseDown += MouseClick_handler;
             Messagelist.Add(BorderObj);
@@ -58,11 +58,11 @@ namespace Monologue
 
         private void MainWindowTest_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if(Messagelist.Count > 0) 
+            if (Messagelist.Count > 0)
             {
                 foreach (Border Obj in Messagelist)
                 {
-                    Obj.MaxWidth= MainWindowTest.Width - 30;
+                    Obj.MaxWidth = MainWindowTest.Width - 30;
                 }
             }
         }
