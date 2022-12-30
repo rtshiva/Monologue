@@ -23,7 +23,7 @@
                 </Border.Background>
                 <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
                     <DockPanel HorizontalAlignment="Stretch">
-                        <Button x:Name="pushMe" Content="_Me"  DockPanel.Dock="Right" Margin="10 10 10 10" Padding="10" Click="pushMe_Click"/>
+                        <Button x:Name="pushMe" Content="_Me"  DockPanel.Dock="Right" Margin="10 10 10 10" Padding="10" Click="pushMe_Click" IsDefault="True"/>
                         <Button x:Name="pushOtherMe" Content="_OtherMe" DockPanel.Dock="Left"  Margin="10 10 0 10" Padding="10" Click="pushOtherMe_Click"/>
                         <TextBox x:Name="InputBox" DockPanel.Dock="Left" MaxHeight="80" Margin="10 10 0 10" SpellCheck.IsEnabled="True" HorizontalScrollBarVisibility="Auto"/>
                     </DockPanel>
