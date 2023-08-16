@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Monologue
 {
@@ -21,7 +12,7 @@ namespace Monologue
     public partial class MainWindow : Window
     {
         // list to keep track of all message boubles! can use to format the content anytime
-        List<Border> Messagelist = new List<Border>();
+        List<Border> Messagelist = new();
         Color MyColor = Colors.LightGreen;
         Color OtherColor = Colors.LightSkyBlue;
         public MainWindow()
@@ -31,9 +22,7 @@ namespace Monologue
 
         private void pushMe_Click(object sender, RoutedEventArgs e)
         {
-            string UserMessage = InputBox.Text.Replace(" ", "");
-
-            if (UserMessage.Length == 0)
+            if (string.IsNullOrWhiteSpace(InputBox.Text))
             {
                 InputBox.Text = "";
                 InputBox.Focus();
@@ -45,8 +34,8 @@ namespace Monologue
 
         private void PushText(object sender, RoutedEventArgs e, bool LeftMessage)
         {
-            TextBlock MessageObj = new TextBlock();
-            Border BorderObj = new Border();
+            TextBlock MessageObj = new();
+            Border BorderObj = new();
             BorderObj.HorizontalAlignment = (LeftMessage ? HorizontalAlignment.Left : HorizontalAlignment.Right);
             BorderObj.Background = (LeftMessage ? new SolidColorBrush(OtherColor) : new SolidColorBrush(MyColor));
             BorderObj.BorderThickness = new Thickness(3);
@@ -97,9 +86,7 @@ namespace Monologue
 
         private void pushOtherMe_Click(object sender, RoutedEventArgs e)
         {
-            string UserMessage = InputBox.Text.Replace(" ", "");
-
-            if (UserMessage.Length == 0)
+            if (string.IsNullOrWhiteSpace(InputBox.Text))
             {
                 InputBox.Text = "";
                 InputBox.Focus();

@@ -7,6 +7,8 @@
     <UseWPF>true</UseWPF>
     <PackageIcon>icon_talk80.png</PackageIcon>
     <ApplicationIcon>icon_talk80.ico</ApplicationIcon>
+    <AnalysisLevel>latest-all</AnalysisLevel>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <ItemGroup>
