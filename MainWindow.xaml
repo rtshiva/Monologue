@@ -25,7 +25,7 @@
                     <DockPanel HorizontalAlignment="Stretch">
                         <Button x:Name="pushMe" Content="_Me"  DockPanel.Dock="Right" Margin="10 10 10 10" Padding="10" Click="pushMe_Click" IsDefault="True"/>
                         <Button x:Name="pushOtherMe" Content="_OtherMe" DockPanel.Dock="Left"  Margin="10 10 0 10" Padding="10" Click="pushOtherMe_Click"/>
-                        <TextBox x:Name="InputBox" DockPanel.Dock="Left" MaxHeight="80" Margin="10 10 0 10" SpellCheck.IsEnabled="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+                        <TextBox x:Name="InputBox" DockPanel.Dock="Left" MaxHeight="80" Margin="10 10 0 10" SpellCheck.IsEnabled="True" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                     </DockPanel>
                 </StackPanel>
             </Border>
