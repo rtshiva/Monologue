@@ -63,31 +63,40 @@
       <dsig:DigestValue>I8KL7F+8aEb8xnb7YTkvOTk9ffEe3HP8B+XL/Rr+aB4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Monologue.deps.json" size="419">
+  <file name="Microsoft.Windows.SDK.NET.dll" size="22745008">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>74ziWYAF6DX0+xV3GhvzW+RNQbrtJl33F5JdYRW/tSA=</dsig:DigestValue>
+      <dsig:DigestValue>wGf3Prl1tMMr23LM094zbr1RF0190lNRTJ8kyzNovYI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Monologue.dll" size="11881984">
+  <file name="Monologue.deps.json" size="1079">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>eAwIYCBAAvWtSKf19Sn0BFtB6EbXS8SuZ0JiMsM1UOc=</dsig:DigestValue>
+      <dsig:DigestValue>ZXka3o1Z/woeEEiJ91vteLBdei915XjasVE72f4Ca9s=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Monologue.exe" size="184832">
+  <file name="Monologue.dll" size="11878400">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>+LNvg8HUwW4QgLcg0/ZxlFBLLax+OEMU3bDu9qrF6nk=</dsig:DigestValue>
+      <dsig:DigestValue>EiNiae4uCDChzyBwgJHT36IqqArNPaV1xgXf3llPcQ0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Monologue.exe" size="169984">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>QPp7lRcQYxaeC0dU12Qxc3bBo9bxDfMTiBwRv78L2I4=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Monologue.runtimeconfig.json" size="458">
@@ -96,7 +105,16 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>YBIGLYblUb1QapC3Td+VcI9HtfEQ/6rQssb+JbeODyA=</dsig:DigestValue>
+      <dsig:DigestValue>xxFSvyXkDWR7JEDFs5vhV6PTVhBr6dW2eKuXu4e054I=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="WinRT.Runtime.dll" size="399280">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>SXeh5tzuTDMQpo4g8oec85uVJV4p8/11V3geBYRFy5s=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
