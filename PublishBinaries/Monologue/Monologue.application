@@ -8,7 +8,7 @@
         <beforeApplicationStartup />
       </update>
     </subscription>
-    <deploymentProvider codebase="file://siva.mono.com/Monologue.application" />
+    <deploymentProvider codebase="https://raw.githubusercontent.com/rtshiva/Monologue/master/PublishBinaries/Monologue/Monologue.application" />
   </deployment>
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
