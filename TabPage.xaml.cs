@@ -3,12 +3,15 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -34,7 +37,7 @@ namespace ChatWinUi
             this.InitializeComponent();
             ChatScroller.ItemsSource = Messages;
             MessageBox.Focus(FocusState.Programmatic);
-            
+
 
         }
 
@@ -167,7 +170,7 @@ namespace ChatWinUi
                     m.Text
                 });
 
-                var json = JsonSerializer.Serialize(chatData, new JsonSerializerOptions
+                var json = System.Text.Json.JsonSerializer.Serialize(chatData, new JsonSerializerOptions
                 {
                     WriteIndented = true
                 });
@@ -183,7 +186,48 @@ namespace ChatWinUi
 
         private void MessageBox_Loaded(object sender, RoutedEventArgs e)
         {
+            // focus can be set only after textbox is loaded, hence done here
             MessageBox.Focus(FocusState.Programmatic);
+        }
+
+        internal string LoadChat(nint hwnd)
+        {
+            string fileName = "LoadedChat";
+            // open file picker to load chat data , restrict to file options to json files only
+            try
+            {
+                FileOpenPicker fileOpenPicker = new FileOpenPicker
+                {
+                    SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+                };
+                fileOpenPicker.FileTypeFilter.Add(".json");
+                InitializeWithWindow.Initialize(fileOpenPicker, hwnd);
+                var file = fileOpenPicker.PickSingleFileAsync().GetAwaiter().GetResult();
+                if (file != null)
+                {
+                    // read the text from the file
+                    var json = FileIO.ReadTextAsync(file).GetAwaiter().GetResult();
+                    // Deserialize the JSON content to a list of SerializedChatMessage objects
+                    List<SerializedChatMessage> loadedmsgs = JsonConvert.DeserializeObject<List<SerializedChatMessage>>(json);
+                    foreach (var msg in loadedmsgs)
+                    {
+                        Messages.Add(new ChatMessage(msg));
+                    }
+                    fileName = file.Name;
+                }
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
+            return fileName;
+        }
+
+        private void ChatScroller_Loaded(object sender, RoutedEventArgs e)
+        {
+            // if we loaded messages from json, we need to scroll to the last message
+            if (Messages.Count > 0)
+                ChatScroller.ScrollIntoView(Messages.Last());
         }
     }
 }

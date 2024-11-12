@@ -24,7 +24,8 @@
                   HorizontalAlignment="Stretch"
                   SelectionMode="Single"
                   IsItemClickEnabled="True"
-                  Tapped="Message_Tapped">
+                  Tapped="Message_Tapped"
+                  Loaded="ChatScroller_Loaded">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:ChatMessage">
                     <Grid HorizontalAlignment="{x:Bind HorizontalAlignment}"

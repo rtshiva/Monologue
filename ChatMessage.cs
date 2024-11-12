@@ -7,10 +7,32 @@ using Windows.UI;
 
 namespace ChatWinUi
 {
+    public class SerializedChatMessage
+    {
+        public string Username;
+        public string Text;
+    }
     public partial class ChatMessage : INotifyPropertyChanged
     {
         private string text;
         private bool isLocalUser;
+
+        public ChatMessage(SerializedChatMessage msg)
+        {
+            Text = msg.Text;
+            IsLocalUser = msg.Username == "User";
+        }
+
+        public ChatMessage(string text, bool isLocalUser)
+        {
+            Text = text;
+            IsLocalUser = isLocalUser;
+        }
+
+        public ChatMessage()
+        {
+
+        }
 
         public string Text
         {
@@ -97,6 +119,14 @@ namespace ChatWinUi
         internal void ToggleUser()
         {
             IsLocalUser = !isLocalUser;
+        }
+        public SerializedChatMessage Serialize()
+        {
+            return new SerializedChatMessage
+            {
+                Username = Username,
+                Text = Text
+            };
         }
     }
 

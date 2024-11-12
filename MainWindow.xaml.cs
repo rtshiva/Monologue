@@ -26,6 +26,11 @@ namespace ChatWinUi
 
         private void AddNewTab_Click(TabView sender, object args)
         {
+            AddNewTab();
+        }
+
+        private void AddNewTab()
+        {
             Frame frame = new Frame();
             var newTab = new TabViewItem
             {
@@ -33,8 +38,8 @@ namespace ChatWinUi
                 Content = frame,
             };
             frame.Navigate(typeof(TabPage));
-            sender.TabItems.Add(newTab);
-            sender.SelectedItem = newTab;
+            ChatTabs.TabItems.Add(newTab);
+            ChatTabs.SelectedItem = newTab;
         }
 
         private void TabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
@@ -68,14 +73,6 @@ namespace ChatWinUi
             }
         }
 
-        //// Add this helper method for other dialogs you might need
-        //private async Task<ContentDialogResult> ShowDialog(ContentDialog dialog)
-        //{
-        //    // Ensure the dialog uses the correct XamlRoot
-        //    dialog.XamlRoot = Content.XamlRoot;
-        //    return await dialog.ShowAsync();
-        //}
-
         private void ExportChat_Click(object sender, RoutedEventArgs e)
         {
             // Get the current active tab
@@ -94,9 +91,24 @@ namespace ChatWinUi
             _ = page.ExportChatAsync(selectedTab.Header.ToString(), Hwnd);
         }
 
-        private void TabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LoadChat_Click(object sender, RoutedEventArgs e)
         {
+            AddNewTab();
+
             // Get the current active tab
+            var selectedTab = ChatTabs.SelectedItem as TabViewItem;
+            if (selectedTab == null) return;
+
+            // Get the Frame from the current tab's Content
+            var frame = selectedTab.Content as Frame;
+            if (frame == null) return;
+
+            // Get the TabPage from the Frame's Content
+            var page = frame.Content as TabPage;
+            if (page == null) return;
+
+            // Call the ExportChat method on the TabPage
+            selectedTab.Header = page.LoadChat(Hwnd);
         }
     }
 }

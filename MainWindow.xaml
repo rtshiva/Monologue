@@ -15,15 +15,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <controls:StackPanel Orientation="Horizontal" Grid.Row="0" >
-            <HyperlinkButton Content="Export Chat" Click="ExportChat_Click" Margin="5,5,5,0"/>
+            <HyperlinkButton Content="Load chat" Click="LoadChat_Click" Margin="5,5,5,0" />
+            <HyperlinkButton Content="Save Chat" Click="ExportChat_Click" Margin="5,5,5,0"/>
             <HyperlinkButton Content="Rename Tab" Click="RenameTab_Click" Margin="5,5,5,0" />
         </controls:StackPanel>
 
         <controls:TabView x:Name="ChatTabs" 
                           Grid.Row="1" 
                          AddTabButtonClick="AddNewTab_Click"
-                         TabCloseRequested="TabView_TabCloseRequested"
-                          SelectionChanged="TabView_SelectionChanged">
+                         TabCloseRequested="TabView_TabCloseRequested">
 
             <controls:TabViewItem Header="Chat 1" >
                 <Frame SourcePageType="local:TabPage" />
