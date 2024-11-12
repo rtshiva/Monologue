@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ChatWinUi (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ChatWinUi (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

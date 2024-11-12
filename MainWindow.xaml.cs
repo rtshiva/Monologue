@@ -1,136 +1,102 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
+// MainWindow.xaml.cs
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Threading.Tasks;
+using Windows.Graphics;
+using WinRT.Interop;
 
-namespace Monologue
+namespace ChatWinUi
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public sealed partial class MainWindow : Window
     {
-        // list to keep track of all message boubles! can use to format the content anytime
-        List<Border> Messagelist = new();
-        Color MyColor = Colors.LightGreen;
-        Color OtherColor = Colors.LightSkyBlue;
+        private int tabCounter = 2;
+        public IntPtr Hwnd { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            this.AppWindow.SetIcon("Assets\\icon_talk80.ico");
+            // Initialize window handle and AppWindow
+            Hwnd = WindowNative.GetWindowHandle(this);
+            AppWindow.Resize(new SizeInt32(800, 600));
+
         }
 
-        private void pushMe_Click(object sender, RoutedEventArgs e)
+
+        private void AddNewTab_Click(TabView sender, object args)
         {
-            if (string.IsNullOrWhiteSpace(InputBox.Text))
+            Frame frame = new Frame();
+            var newTab = new TabViewItem
             {
-                InputBox.Text = "";
-                InputBox.Focus();
-                return;
-            }
-            PushText(sender, e, false);
-            InputBox.Focus();
+                Header = $"Chat {tabCounter++}",
+                Content = frame,
+            };
+            frame.Navigate(typeof(TabPage));
+            sender.TabItems.Add(newTab);
+            sender.SelectedItem = newTab;
         }
 
-        private void PushText(object sender, RoutedEventArgs e, bool LeftMessage)
+        private void TabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
         {
-            TextBlock MessageObj = new();
-            Border BorderObj = new();
-            BorderObj.HorizontalAlignment = (LeftMessage ? HorizontalAlignment.Left : HorizontalAlignment.Right);
-            BorderObj.Background = (LeftMessage ? new SolidColorBrush(OtherColor) : new SolidColorBrush(MyColor));
-            BorderObj.BorderThickness = new Thickness(3);
-            BorderObj.CornerRadius = new CornerRadius(10);
-            BorderObj.Margin = new Thickness(0, 0, 0, 0);
-            BorderObj.Padding = new Thickness(4);
-
-            MessageObj.TextWrapping = TextWrapping.Wrap;
-            MessageObj.Text = InputBox.Text;
-            BorderObj.MaxWidth = MainWindowTest.Width - 30;
-            InputBox.Text = "";
-
-            BorderObj.Child = MessageObj;
-            BorderObj.MouseDown += MouseClick_handler;
-            Messagelist.Add(BorderObj);
-            MessageViewer.Children.Add(BorderObj);
+            sender.TabItems.Remove(args.Tab);
         }
 
-        private void MainWindowTest_SizeChanged(object sender, SizeChangedEventArgs e)
+        private async void RenameTab_Click(object sender, RoutedEventArgs e)
         {
-            if (Messagelist.Count > 0)
+            var selectedTab = ChatTabs.SelectedItem as TabViewItem;
+            if (selectedTab == null) return;
+
+            var dialog = new ContentDialog
             {
-                foreach (Border Obj in Messagelist)
+                Title = "Rename Tab",
+                PrimaryButtonText = "OK",
+                CloseButtonText = "Cancel",
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new TextBox { PlaceholderText = "Enter new tab name", Text = selectedTab.Header.ToString(), SelectionLength = selectedTab.Header.ToString().Length },
+                XamlRoot = Content.XamlRoot
+            };
+
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                var newName = (dialog.Content as TextBox).Text;
+                if (!string.IsNullOrWhiteSpace(newName))
                 {
-                    Obj.MaxWidth = MainWindowTest.Width - 30;
+                    selectedTab.Header = newName;
                 }
             }
         }
 
-        private void MouseClick_handler(object sender, MouseButtonEventArgs e)
-        {
-            Border Message = (Border)sender;
-            if (Keyboard.Modifiers == ModifierKeys.Control)
-            {
-                if (Message.HorizontalAlignment == HorizontalAlignment.Left)
-                {
-                    Message.HorizontalAlignment = HorizontalAlignment.Right;
-                    Message.Background = new SolidColorBrush(MyColor);
-                }
-                else
-                {
-                    Message.HorizontalAlignment = HorizontalAlignment.Left;
-                    Message.Background = new SolidColorBrush(OtherColor);
-                }
-            }
+        //// Add this helper method for other dialogs you might need
+        //private async Task<ContentDialogResult> ShowDialog(ContentDialog dialog)
+        //{
+        //    // Ensure the dialog uses the correct XamlRoot
+        //    dialog.XamlRoot = Content.XamlRoot;
+        //    return await dialog.ShowAsync();
+        //}
 
+        private void ExportChat_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the current active tab
+            var selectedTab = ChatTabs.SelectedItem as TabViewItem;
+            if (selectedTab == null) return;
+
+            // Get the Frame from the current tab's Content
+            var frame = selectedTab.Content as Frame;
+            if (frame == null) return;
+
+            // Get the TabPage from the Frame's Content
+            var page = frame.Content as TabPage;
+            if (page == null) return;
+
+            // Call the ExportChat method on the TabPage
+            _ = page.ExportChatAsync(selectedTab.Header.ToString(), Hwnd);
         }
 
-        private void pushOtherMe_Click(object sender, RoutedEventArgs e)
+        private void TabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(InputBox.Text))
-            {
-                InputBox.Text = "";
-                InputBox.Focus();
-                return;
-            }
-            PushText(sender, e, true);
-            InputBox.Focus();
-        }
-
-        private void keydown_handler(object sender, KeyEventArgs e)
-        {
-            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.OemPlus)
-            {
-                IncreaseWindowFont();
-            }
-            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.OemMinus)
-            {
-                DecreaseWindowFont();
-            }
-
-        }
-
-        private void IncreaseWindowFont()
-        {
-            MainWindowTest.FontSize = MainWindowTest.FontSize + 1;
-        }
-        private void DecreaseWindowFont()
-        {
-            MainWindowTest.FontSize = MainWindowTest.FontSize - 1;
-        }
-
-        private void mousescroller_handler(object sender, MouseWheelEventArgs e)
-        {
-            if (Keyboard.Modifiers == ModifierKeys.Control)
-            {
-                if (e.Delta > 0)
-                {
-                    IncreaseWindowFont();
-                }
-                if (e.Delta < 0)
-                {
-                    DecreaseWindowFont();
-                }
-            }
+            // Get the current active tab
         }
     }
 }

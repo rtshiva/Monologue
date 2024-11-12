@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="ChatWinUi.EmojiPicker"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChatWinUi"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Grid>
+        <controls:ItemsRepeater x:Name="EmojiList">
+            <controls:ItemsRepeater.Layout>
+                <controls:UniformGridLayout 
+                    MinItemWidth="40"
+                    MinItemHeight="40"
+                    MinRowSpacing="5"
+                    MinColumnSpacing="5"/>
+            </controls:ItemsRepeater.Layout>
+            <controls:ItemsRepeater.ItemTemplate>
+                <DataTemplate>
+                    <controls:Button 
+                        Content="{Binding}"
+                        FontSize="20" 
+                        Margin="2"
+                        Padding="8"
+                        Click="EmojiButton_Click"
+                        Style="{StaticResource ButtonRevealStyle}"/>
+                </DataTemplate>
+            </controls:ItemsRepeater.ItemTemplate>
+        </controls:ItemsRepeater>
+    </Grid>
+</UserControl>
