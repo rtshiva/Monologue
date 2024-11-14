@@ -22,7 +22,7 @@ jobs:
         dotnet-version: 8.0.x
         cache: true
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore --use-lock-file
     - name: Install dependencies
       run: dotnet add package Newtonsoft.Json Microsoft.Windows.SDK.BuildTools Microsoft.WindowsAppSDK
     - name: Build
