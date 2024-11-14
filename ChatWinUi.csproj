@@ -18,6 +18,7 @@
     <Title>Monologue</Title>
     <PublishAot>False</PublishAot>
     <Product>Monologue</Product>
+	<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
