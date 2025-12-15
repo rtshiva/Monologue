@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Media;
 using System;
 using System.ComponentModel;
 using Windows.UI;
+using Windows.UI.ViewManagement;
 
 namespace ChatWinUi
 {
@@ -12,10 +13,12 @@ namespace ChatWinUi
         public string Username;
         public string Text;
     }
+
     public partial class ChatMessage : INotifyPropertyChanged
     {
         private string text;
         private bool isLocalUser;
+        private static ThemeBrushHelper brushHelper = new ThemeBrushHelper();
 
         public ChatMessage(SerializedChatMessage msg)
         {
@@ -94,19 +97,14 @@ namespace ChatWinUi
             }
         }
 
-
         private SolidColorBrush GetMessageBackground(bool isLocalUser)
         {
-            return new SolidColorBrush(isLocalUser ?
-                Color.FromArgb(255, 220, 248, 198) :  // Light green
-                Color.FromArgb(255, 207, 225, 254));  // Light blue
+            return isLocalUser ? brushHelper.userBackground : brushHelper.otherBackground;
         }
 
         private SolidColorBrush GetMessageBorder(bool isLocalUser)
         {
-            return new SolidColorBrush(isLocalUser ?
-                Color.FromArgb(255, 190, 238, 158) :  // Darker green
-                Color.FromArgb(255, 187, 205, 234));  // Darker blue
+            return isLocalUser ? brushHelper.userBorder : brushHelper.otherBorder;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -127,6 +125,35 @@ namespace ChatWinUi
                 Username = Username,
                 Text = Text
             };
+        }
+
+        private class ThemeBrushHelper
+        {
+            public SolidColorBrush userBackground;
+            public SolidColorBrush otherBackground;
+            public SolidColorBrush userBorder;
+            public SolidColorBrush otherBorder;
+
+            public ThemeBrushHelper()
+            {
+                userBackground = new SolidColorBrush();
+                otherBackground = new SolidColorBrush();
+                userBorder = new SolidColorBrush();
+                otherBorder = new SolidColorBrush();
+                UpdateBrushes();
+                var settings = new UISettings();
+                settings.ColorValuesChanged += (s, e) => UpdateBrushes();
+            }
+
+            private void UpdateBrushes()
+            {
+                var isDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
+
+                userBackground.Color = isDark ? Color.FromArgb(255, 22, 120, 14) : Color.FromArgb(255, 220, 248, 198);
+                otherBackground.Color = isDark ? Color.FromArgb(255, 41, 153, 186) : Color.FromArgb(255, 207, 225, 254);
+                userBorder.Color = isDark ? Color.FromArgb(255, 18, 90, 12) : Color.FromArgb(255, 190, 238, 158);
+                otherBorder.Color = isDark ? Color.FromArgb(255, 50, 50, 50) : Color.FromArgb(255, 187, 205, 234);
+            }
         }
     }
 

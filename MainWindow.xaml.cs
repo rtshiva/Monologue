@@ -5,6 +5,9 @@ using System;
 using System.Threading.Tasks;
 using Windows.Graphics;
 using WinRT.Interop;
+using System.Runtime.InteropServices;
+using Microsoft.UI;
+using Windows.UI.ViewManagement;
 
 namespace ChatWinUi
 {
@@ -12,6 +15,14 @@ namespace ChatWinUi
     {
         private int tabCounter = 2;
         public IntPtr Hwnd { get; private set; }
+
+        // Reference to the DwmSetWindowAttribute function
+        [DllImport("dwmapi.dll")]
+        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+
+        // Constant for setting immersive dark mode
+        private const int DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 = 19;
+        private const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
 
         public MainWindow()
         {
@@ -21,8 +32,25 @@ namespace ChatWinUi
             Hwnd = WindowNative.GetWindowHandle(this);
             AppWindow.Resize(new SizeInt32(800, 600));
 
+            // Subscribe to theme changes
+            var settings = new UISettings();
+            settings.ColorValuesChanged += (s, e) => UpdateTitleBarTheme();
         }
 
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateTitleBarTheme();
+        }
+
+        private void UpdateTitleBarTheme()
+        {
+            if (Content is FrameworkElement rootElement)
+            {
+                var isDark = rootElement.ActualTheme == ElementTheme.Dark;
+                int useImmersiveDarkMode = isDark ? 1 : 0;
+                DwmSetWindowAttribute(Hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE, ref useImmersiveDarkMode, sizeof(int));
+            }
+        }
 
         private void AddNewTab_Click(TabView sender, object args)
         {
