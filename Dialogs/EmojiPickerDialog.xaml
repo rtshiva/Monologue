@@ -1,0 +1,17 @@
+<ContentDialog
+    x:Class="ChatWinUi.Dialogs.EmojiPickerDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChatWinUi.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:ChatWinUi"
+    mc:Ignorable="d"
+    Title="Select an Emoji"
+    Width="400"
+    Height="400">
+
+    <Grid>
+        <controls:EmojiPicker EmojiSelected="EmojiPicker_EmojiSelected" />
+    </Grid>
+</ContentDialog>

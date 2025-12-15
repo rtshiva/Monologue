@@ -18,6 +18,7 @@ using Windows.Storage.Pickers;
 using Windows.System;
 using Windows.UI.Core;
 using WinRT.Interop;
+using ChatWinUi.Dialogs;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,9 +36,20 @@ namespace ChatWinUi
         public TabPage()
         {
             this.InitializeComponent();
+            var isDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
             ChatScroller.ItemsSource = Messages;
             MessageBox.Focus(FocusState.Programmatic);
-
+            
+            if(isDark)
+            {
+                UserButton.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 22, 120, 14));
+                OtherButton.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 41, 153, 186));
+            }
+            else
+            {
+                UserButton.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 220, 248, 198));
+                OtherButton.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 207, 225, 254));
+            }
 
         }
 
@@ -145,6 +157,21 @@ namespace ChatWinUi
             Messages.Insert(index, SelectedMessage);
             Brush bbrush = SelectedMessage.Background;
             ChatScroller.SelectedIndex = -1;
+        }
+
+        private async void EmojiButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new EmojiPickerDialog();
+            dialog.XamlRoot = this.XamlRoot;
+            var result = await dialog.ShowAsync();
+
+            if (!string.IsNullOrEmpty(dialog.SelectedEmoji))
+            {
+                var caretIndex = MessageBox.SelectionStart;
+                MessageBox.Text = MessageBox.Text.Insert(caretIndex, dialog.SelectedEmoji);
+                MessageBox.SelectionStart = caretIndex + dialog.SelectedEmoji.Length;
+            }
+            MessageBox.Focus(FocusState.Programmatic);
         }
 
         [RequiresUnreferencedCode("Calls System.Text.Json.JsonSerializer.Serialize<TValue>(TValue, JsonSerializerOptions)")]

@@ -20,13 +20,14 @@
             </controls:ItemsRepeater.Layout>
             <controls:ItemsRepeater.ItemTemplate>
                 <DataTemplate>
-                    <controls:Button 
+                    <Button 
                         Content="{Binding}"
-                        FontSize="20" 
-                        Margin="2"
-                        Padding="8"
-                        Click="EmojiButton_Click"
-                        Style="{StaticResource ButtonRevealStyle}"/>
+                        FontSize="24" 
+                        Margin="0"
+                        Padding="0"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Click="EmojiButton_Click"/>
                 </DataTemplate>
             </controls:ItemsRepeater.ItemTemplate>
         </controls:ItemsRepeater>
